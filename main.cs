@@ -6,7 +6,7 @@ namespace contact_manager
     {
         static void Main()
         {
-            Console.Write("Cycki");
+            Console.Write("");
         }
     }
 }
