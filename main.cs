@@ -7,7 +7,7 @@ namespace contact_manager
         static void Main()
         {
             Logic ContactManager = new Logic();
-
+            Console.WriteLine("cd");
             ContactManager.AddContact();
         }
     }

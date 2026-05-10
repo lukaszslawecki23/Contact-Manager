@@ -15,7 +15,7 @@ namespace contact_manager
             newContact.FirstName = Console.ReadLine();
             Console.Write("Last name: ");
             newContact.LastName = Console.ReadLine();
-            Console.Write("Phone number: ");
+            Console.Write("Phone numbera: ");
             newContact.PhoneNumber = Console.ReadLine();
             Console.Write("Email address: ");
             newContact.EmailAddress = Console.ReadLine();

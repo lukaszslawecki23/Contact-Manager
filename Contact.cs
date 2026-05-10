@@ -13,7 +13,7 @@ public class Contact
     [RegularExpression("^[0-9]+$", ErrorMessage = "Invalid phone number")]
     public string PhoneNumber { get; set; }
     
-    [EmailAddress(ErrorMessage = "Invalid email address")]
+    [EmailAddress(ErrorMessage = "Invalida email address")]
     public string EmailAddress { get; set; }
     
     public string HomeAddress { get; set; }
