@@ -20,6 +20,7 @@ namespace contact_manager
                 Console.WriteLine("[1] Show contacts.");
                 Console.WriteLine("[2] Add contacts.");
                 Console.WriteLine("[3] Delete contact.");
+                Console.WriteLine("[4] Edit contact.");
                 Console.WriteLine("[0] Exit program.");
                 _choice = Console.ReadLine();
 
@@ -37,6 +38,9 @@ namespace contact_manager
                         break;
                     case "3":
                         ContactManager.DeleteContact();
+                        break;
+                    case "4":
+                        ContactManager.EditContact();
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
