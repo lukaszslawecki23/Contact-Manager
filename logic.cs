@@ -5,23 +5,41 @@ namespace contact_manager
 {
     class Logic
     {
+        private string IsNotEmpty(string inputSpace)
+        {
+            string input = "";
+
+            while (string.IsNullOrWhiteSpace(input))
+            {
+                Console.Write(inputSpace);
+                input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("You need to fill this field!");
+                }
+            }
+            
+            return input;
+        }
+        
         private List<Contact> _contacts = new List<Contact>();
         private string _fileName = "contact_data.json";
         
         public void AddContact()
         {
             Contact newContact = new Contact();
+
+            newContact.FirstName = IsNotEmpty("First name: ");
+
+            newContact.LastName = IsNotEmpty("Last name: ");
             
-            Console.Write("First name: ");
-            newContact.FirstName = Console.ReadLine();
-            Console.Write("Last name: ");
-            newContact.LastName = Console.ReadLine();
-            Console.Write("Phone number: ");
-            newContact.PhoneNumber = Console.ReadLine();
-            Console.Write("Email address: ");
-            newContact.EmailAddress = Console.ReadLine();
-            Console.Write("Home address: ");
-            newContact.HomeAddress = Console.ReadLine();
+            newContact.PhoneNumber = IsNotEmpty("Phone number: ");
+            
+            newContact.EmailAddress = IsNotEmpty("Email: ");
+            
+            newContact.HomeAddress = IsNotEmpty("Home address: ");
+            
             Console.Write("Note (optional): ");
             newContact.OptionalNote = Console.ReadLine();
 
@@ -60,8 +78,37 @@ namespace contact_manager
             {
                 Contact currentContact = _contacts[i];
                 
-                Console.WriteLine(currentContact);
+                Console.WriteLine($"[{i + 1}] {currentContact.FirstName} {currentContact.LastName} | phone number: {currentContact.PhoneNumber} | email: {currentContact.EmailAddress} | address: {currentContact.HomeAddress} | note: {currentContact.OptionalNote}");
             }
+        }
+
+        public void DeleteContact()
+        {
+            Console.WriteLine("Which contact do you want to delete?");
+            
+            ShowContacts();
+
+            bool _working = true;
+            int _choice = -1;
+
+            while (_working)
+            {
+                Console.WriteLine("Type index: ");
+                _choice = Convert.ToInt32(Console.ReadLine());
+
+                if (_choice >= _contacts.Count && _choice >= 0)
+                {
+                    _working = false;
+                }
+                
+                Console.WriteLine("Index out of range");
+            }
+            
+            _contacts.RemoveAt(_choice - 1);
+            
+            AddToFile();
+            
+            Console.WriteLine("Contact removed succesfully.");
         }
 
         private void AddToFile()
@@ -69,8 +116,6 @@ namespace contact_manager
             var options = new JsonSerializerOptions { WriteIndented = true };
             string convertedString = JsonSerializer.Serialize(_contacts, options);
             File.WriteAllText(_fileName, convertedString);
-            
-            Console.WriteLine($"Data added to file {_fileName}");
         }
 
         public void LoadFromFile()
